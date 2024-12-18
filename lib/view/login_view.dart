@@ -49,10 +49,9 @@ class LoginScreen extends StatelessWidget {
               ),
             ),
           ),
-         
+
           Positioned(
-            top: MediaQuery.of(context).size.height *
-                0.3, 
+            top: MediaQuery.of(context).size.height * 0.3,
             left: 16,
             right: 16,
             child: Card(
@@ -112,7 +111,7 @@ class LoginScreen extends StatelessWidget {
                           if (value == null || value.isEmpty) {
                             return 'Please enter your password';
                           } else if (value.length < 2) {
-                            return 'Password must be at least 6 characters';
+                            return 'Password must be at least 2 characters';
                           }
                           return null;
                         },
@@ -155,13 +154,11 @@ class LoginScreen extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 12),
-                      
+
                       Align(
                         alignment: Alignment.centerRight,
                         child: TextButton(
-                          onPressed: () {
-                           
-                          },
+                          onPressed: () {},
                           child: const Text(
                             'Forgot Password?',
                             style: TextStyle(

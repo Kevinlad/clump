@@ -3,6 +3,7 @@ import 'package:clump_project/utils/routes/routes_name.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../view_model/auth_provider.dart';
 import '../view_model/lead_view_model.dart';
 
 class LeadsScreen extends StatefulWidget {
@@ -17,11 +18,17 @@ class _LeadsScreenState extends State<LeadsScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final token =
-          "97d947148b5e43fa8c5210d3fd9b172052d0dfba943beca1db4ab76e638aad73fb9fa69df7dda10f60ec922596cbb0765613a6d4e6db3968ee249c4175de43edH6fbxOJ1RZITFq6yDS1Eh8BIQ/8fq4uaaOleKVNylaAV/kAv2QiKQX45QKka5z1e2Qxdz8sgDbp9+ujmWa37hWuu81KerHRYIBn7I1lDObDEJDMGV9IkBTOCMdKG4C+JeYZt3/MRiZSTWtBf2zLpOlinmFoXy3o39rpX4nJcDxkIkD/3+icyeC0jHSAwSi1QV6W+Sgaf/qUmwRR20nrfDXngF5x6HUdIpVEbfFD6UI+99XPvQUYMy9/xxlyYB5gU3iamv91UUAZUz+UynjynpJQdVezexm7b7YxBJVpp8Ev9LRTzS4F3Xet745lcTn/vChnVrODUGzeD2cPohwMAyP9dWF0/2rxcldhPwJErz9vW4wiGe5DbHtVpypQTntciNb17XR3dj2om2ooVRbND8Myezi/I9pDGlBvqWhAxn4veHL0+DcM/Urn2mweE5L/l3CzweWLwsxrmiRw3vN1KiftptWnNPIqIJP5Iq+gJ2r8qds6otxn39tfB1ZKFMfA0ZD7heZWjb0A3N+ADLJl6YuNYHgkumWF+ZNlyqnfsTV1B02AL/KSCNt2fHzMaxU9R7P0ybnttdkOSt69DDyjjkxyMKh3DyyUhd8BvdQV14NG9wQntyXSJpIYb1shfBTk+80iWALks8lahDrj6KpqG7YRKEiameFJp/7Jfp6PLer9EV86/VR/20fQ9Qx4VPAuuD5ukosJ/8Kh/NVraW/0DWf7gqU18ey/ztIQYacSV0q+OJC/I2TQCg0KR2ez0efim2Qj7JOHAV7DjZ8fIv7h90/Wk0I4oHSEF+MA7DuveTyBzPS43Rn1HGACXzltps/3kiyfV2hJigZPaynwgLY3oCjhzeIG12gN0MFOyTl0/aTJLoJizqZC37cdDbw7Dq9lYnwmzPz1r5l2aJ4zn95/uKSVNC49b5CCqY7ojg2Wnhjc/4HLp3Cmy5mDI6GBSYHjWA6mpFu2i4YcLssCOkg7dBd3+44+JQV8hmV0s+brc322swNt0Swy7yK+WUGdAHS1ljI92mF3un7Jfz2zzmj+jBxZIhvFR3y/+8x4i8S81z4vYl2xAoni6vetSjLD2DzNnCnvWgzSEoEDwDDZMezMxosVPLIRZqazQdtCUBmJ7BPGe6SmrzN7h5PCq0PIy5lKXPGPrU752eh0by8RDcQG2yasgF6OiFcxAXsWQWU5XCZKRWC5I9V+xKj4FYtn3n95KR+Rh3bPXqdTjng1jU6sM2ehBPczPpfOc+RpEufd/CLELliJehH6TLMmtFiXBtKxHcfamZMmGBSI4jKcSqqgvZMhDkk79XjC1oB8cllpp7BebuHmsBoFk7lTjftR+u273h3oYy+QLgBNQpxxWNYB4X9Qa8l/AZW3lnRdPchXIWmUBC3l+brWzoi5c8GOlsYvxrigVlNCVV4BvpbUuODqV9iFCXS8c0ZvlBB3JyVDWWB30O9jLVFia1WgVgzjO6k9S";
-      Provider.of<LeadProvider>(context, listen: false).fetchLeads(token);
+      final token = Provider.of<AuthProvider>(context, listen: false).token;
+
+      if (token != null && token.isNotEmpty) {
+        Provider.of<LeadProvider>(context, listen: false).fetchLeads(token);
+      } else {
+        print("Token not found. Please log in again.");
+        Navigator.pushNamed(context, RoutesName.login);
+      }
     });
   }
+  // "97d947148b5e43fa8c5210d3fd9b172052d0dfba943beca1db4ab76e638aad73fb9fa69df7dda10f60ec922596cbb0765613a6d4e6db3968ee249c4175de43edH6fbxOJ1RZITFq6yDS1Eh8BIQ/8fq4uaaOleKVNylaAV/kAv2QiKQX45QKka5z1e2Qxdz8sgDbp9+ujmWa37hWuu81KerHRYIBn7I1lDObDEJDMGV9IkBTOCMdKG4C+JeYZt3/MRiZSTWtBf2zLpOlinmFoXy3o39rpX4nJcDxkIkD/3+icyeC0jHSAwSi1QV6W+Sgaf/qUmwRR20nrfDXngF5x6HUdIpVEbfFD6UI+99XPvQUYMy9/xxlyYB5gU3iamv91UUAZUz+UynjynpJQdVezexm7b7YxBJVpp8Ev9LRTzS4F3Xet745lcTn/vChnVrODUGzeD2cPohwMAyP9dWF0/2rxcldhPwJErz9vW4wiGe5DbHtVpypQTntciNb17XR3dj2om2ooVRbND8Myezi/I9pDGlBvqWhAxn4veHL0+DcM/Urn2mweE5L/l3CzweWLwsxrmiRw3vN1KiftptWnNPIqIJP5Iq+gJ2r8qds6otxn39tfB1ZKFMfA0ZD7heZWjb0A3N+ADLJl6YuNYHgkumWF+ZNlyqnfsTV1B02AL/KSCNt2fHzMaxU9R7P0ybnttdkOSt69DDyjjkxyMKh3DyyUhd8BvdQV14NG9wQntyXSJpIYb1shfBTk+80iWALks8lahDrj6KpqG7YRKEiameFJp/7Jfp6PLer9EV86/VR/20fQ9Qx4VPAuuD5ukosJ/8Kh/NVraW/0DWf7gqU18ey/ztIQYacSV0q+OJC/I2TQCg0KR2ez0efim2Qj7JOHAV7DjZ8fIv7h90/Wk0I4oHSEF+MA7DuveTyBzPS43Rn1HGACXzltps/3kiyfV2hJigZPaynwgLY3oCjhzeIG12gN0MFOyTl0/aTJLoJizqZC37cdDbw7Dq9lYnwmzPz1r5l2aJ4zn95/uKSVNC49b5CCqY7ojg2Wnhjc/4HLp3Cmy5mDI6GBSYHjWA6mpFu2i4YcLssCOkg7dBd3+44+JQV8hmV0s+brc322swNt0Swy7yK+WUGdAHS1ljI92mF3un7Jfz2zzmj+jBxZIhvFR3y/+8x4i8S81z4vYl2xAoni6vetSjLD2DzNnCnvWgzSEoEDwDDZMezMxosVPLIRZqazQdtCUBmJ7BPGe6SmrzN7h5PCq0PIy5lKXPGPrU752eh0by8RDcQG2yasgF6OiFcxAXsWQWU5XCZKRWC5I9V+xKj4FYtn3n95KR+Rh3bPXqdTjng1jU6sM2ehBPczPpfOc+RpEufd/CLELliJehH6TLMmtFiXBtKxHcfamZMmGBSI4jKcSqqgvZMhDkk79XjC1oB8cllpp7BebuHmsBoFk7lTjftR+u273h3oYy+QLgBNQpxxWNYB4X9Qa8l/AZW3lnRdPchXIWmUBC3l+brWzoi5c8GOlsYvxrigVlNCVV4BvpbUuODqV9iFCXS8c0ZvlBB3JyVDWWB30O9jLVFia1WgVgzjO6k9S";
 
   bool isOpen = false;
   bool isCompleted = true;
@@ -36,14 +43,13 @@ class _LeadsScreenState extends State<LeadsScreen> {
     final leadProvider = Provider.of<LeadProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xFF4CAF50), 
+        backgroundColor: const Color(0xFF4CAF50),
         elevation: 0,
         title: const Text(
           "Leads",
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
-
         actions: [
           IconButton(
             icon: const Icon(Icons.add, color: Colors.white),
@@ -53,12 +59,10 @@ class _LeadsScreenState extends State<LeadsScreen> {
       ),
       body: Column(
         children: [
-          // Search and Filter Row
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             child: Row(
               children: [
-                // Search Bar
                 Expanded(
                   child: TextField(
                     decoration: InputDecoration(
@@ -79,12 +83,11 @@ class _LeadsScreenState extends State<LeadsScreen> {
                   ),
                 ),
                 const SizedBox(width: 8),
-                // Filter Button with Badge
                 Stack(
                   children: [
                     IconButton(
                       onPressed: () {
-                        leadProvider.sortLeadsByFollowDate();
+                        _showFilterBottomSheet(context, leadProvider);
                       },
                       icon: const Icon(Icons.filter_list, size: 28),
                       color: Colors.green,
@@ -110,10 +113,9 @@ class _LeadsScreenState extends State<LeadsScreen> {
                   ],
                 ),
                 const SizedBox(width: 8),
-                // Sort Button
                 IconButton(
                   onPressed: () {
-                    _showFilterBottomSheet(context, leadProvider);
+                    leadProvider.sortLeadsByFollowDate();
                   },
                   icon: const Icon(Icons.swap_vert, size: 28),
                   color: Colors.green,
@@ -144,7 +146,6 @@ class _LeadsScreenState extends State<LeadsScreen> {
     );
   }
 
-  // Lead Card Widget
   Widget buildLeadCard({
     required String name,
     required String company,
@@ -169,7 +170,6 @@ class _LeadsScreenState extends State<LeadsScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Lead Name and Status Row
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -217,7 +217,7 @@ class _LeadsScreenState extends State<LeadsScreen> {
 
     showModalBottomSheet(
       context: context,
-      isScrollControlled: true, // Ensures full height on large content
+      isScrollControlled: true,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
       ),
@@ -302,10 +302,9 @@ class _LeadsScreenState extends State<LeadsScreen> {
                   ],
                 ),
               ),
-              // Status Section
+
               const Divider(),
 
-              // Promotions Section
               const Text(
                 "Promotions",
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
@@ -359,17 +358,5 @@ class _LeadsScreenState extends State<LeadsScreen> {
         );
       },
     );
-  }
-
-  void _resetFilters() {
-    setState(() {
-      isOpen = false;
-      isCompleted = false;
-      isClosed = false;
-      isGPBO = false;
-      isJustDial = false;
-      isNewspaper = false;
-      isGPBS = false;
-    });
   }
 }

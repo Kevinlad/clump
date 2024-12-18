@@ -27,8 +27,8 @@ class LeadProvider extends ChangeNotifier {
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
-      // Access the 'lead' list inside the 'data' object
-      _leads = data['data']?['lead'] ?? []; // Safely access 'lead' list
+    
+      _leads = data['data']?['lead'] ?? []; 
     } else {
       throw Exception('Failed to fetch leads');
     }
@@ -43,7 +43,7 @@ void sortLeadsByFollowDate() {
     _leads.sort((a, b) {
       DateTime dateA = DateTime.tryParse(a['followDate'] ?? '') ?? DateTime(0);
       DateTime dateB = DateTime.tryParse(b['followDate'] ?? '') ?? DateTime(0);
-      return dateA.compareTo(dateB); // Ascending order
+      return dateA.compareTo(dateB);
     });
     notifyListeners();
   }

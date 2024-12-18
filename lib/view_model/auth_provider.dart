@@ -66,6 +66,12 @@ class AuthProvider with ChangeNotifier {
 
       if (response.statusCode == 200) {
         print("Registration Successful!");
+        final data = json.decode(responseBody);
+
+        // Save token and user data
+        final token = data['data']['token'];
+        final userData = data['data']['user'];
+        await _storeUserData(token, userData);
         Navigator.pushNamed(context, RoutesName.home);
       } else {
         throw Exception('Failed to register. Error: ${response.statusCode}');
@@ -107,9 +113,12 @@ class AuthProvider with ChangeNotifier {
         print('Login successful: ${data['data']['user_token']}');
         print('Login full name: ${data['data']['user']['full_name']}');
 
-        // Parse User Data
+       
         _user = User.fromJson(data['data']['user']);
-
+     
+        final token = data['data']['user_token'];
+        final userData = data['data']['user'];
+        await _storeUserData(token, userData);
         notifyListeners();
 
         Navigator.pushNamed(context, RoutesName.home);
@@ -131,7 +140,7 @@ class AuthProvider with ChangeNotifier {
     await prefs.setString('user', json.encode(userData));
 
     _token = token;
-    _user = User.fromJson(userData); // Update local user state
+    _user = User.fromJson(userData); 
     notifyListeners();
   }
 
@@ -170,7 +179,7 @@ class AuthProvider with ChangeNotifier {
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        _user = User.fromJson(data['data']); // Update user data
+        _user = User.fromJson(data['data']); 
         notifyListeners();
       } else {
         print("Failed to fetch profile: ${response.body}");

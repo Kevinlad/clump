@@ -25,7 +25,6 @@ class _UserFormScreenState extends State<UserFormScreen> {
     _loadUserData();
   }
 
-  // Load user data and populate text fields
   void _loadUserData() {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     authProvider.fetchProfile().then((_) {

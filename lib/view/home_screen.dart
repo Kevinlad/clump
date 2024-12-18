@@ -21,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: const Color(0xFF4CAF50), // Green background
+        backgroundColor: const Color(0xFF4CAF50), 
         elevation: 0,
 
         actions: [
@@ -34,9 +34,9 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Header Section
+       
           Container(
-            color: const Color(0xFF4CAF50), // Green background
+            color: const Color(0xFF4CAF50), 
             padding: const EdgeInsets.all(16.0),
             child: Row(
               children: [
@@ -80,7 +80,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
 
-          // Grid View for Cards
           Expanded(
             child: GridView.count(
               crossAxisCount: 2,
@@ -89,26 +88,22 @@ class _HomeScreenState extends State<HomeScreen> {
               crossAxisSpacing: 12,
               mainAxisSpacing: 12,
               children: [
-                // Leads Card
                 buildCard(
                   icon: Icons.filter_alt_outlined,
                   title: "Leads",
                   count: "8",
                   context: context,
                 ),
-                // Tasks Card
                 buildCard(
                   icon: Icons.hexagon_outlined,
                   title: "Tasks",
                   count: "10",
                   context: context,
                 ),
-                // Follow Up Lead Card
                 buildSimpleCard(
                   title: "Follow Up Lead",
                   context: context,
                 ),
-                // Due Follow up Lead Card
                 buildSimpleCard(
                   title: "Due Follow up Lead",
                   context: context,
